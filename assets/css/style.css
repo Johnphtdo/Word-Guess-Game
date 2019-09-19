@@ -1,0 +1,60 @@
+body {
+
+    background-image: url(https://images.all-free-download.com/images/graphiclarge/ice_cream_background_colorful_repeating_decoration_6829673.jpg);
+    background-repeat: repeat;
+}
+header {
+
+    font-family: 'Kalam', cursive;
+    font-size: 32px;
+    text-align: center;
+    border: 3px solid black;
+    margin: 15px auto;
+    height: 80px;
+    width: 80%;
+    padding-top: 50px;
+
+}
+
+.gameStart {
+    
+    font-family: 'Kalam', cursive;
+    text-align: center;
+    border: 3px solid black;
+    margin: 15px auto;
+    height: 80px;
+    width: 80%;
+    padding-top: 50px;
+
+}
+
+.underscore {
+
+    text-align: center;
+    border: 3px solid black;
+    margin: 15px auto;
+    height: 80px;
+    width: 80%;
+    padding-top: 50px;
+}
+.guessesLeft {
+
+    text-align: center;
+    border: 3px solid black;
+    margin: 15px auto;
+    height: 80px;
+    width: 80%;
+    padding-top: 50px;
+
+}
+
+.wrongGuess{
+
+    text-align: center;
+    border: 3px solid black;
+    margin: 15px auto;
+    height: 80px;
+    width: 80%;
+    padding-top: 50px;
+
+}
