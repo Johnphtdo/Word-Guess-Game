@@ -28,8 +28,8 @@ header {
 
 }
 
-.underscore {
-
+.box3 {
+    font-family: 'Kalam', cursive;
     text-align: center;
     border: 3px solid black;
     margin: 15px auto;
@@ -37,8 +37,8 @@ header {
     width: 80%;
     padding-top: 50px;
 }
-.guessesLeft {
-
+.box4 {
+    font-family: 'Kalam', cursive;
     text-align: center;
     border: 3px solid black;
     margin: 15px auto;
@@ -48,8 +48,8 @@ header {
 
 }
 
-.wrongGuess{
-
+.box5{
+    font-family: 'Kalam', cursive;
     text-align: center;
     border: 3px solid black;
     margin: 15px auto;
