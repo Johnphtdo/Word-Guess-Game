@@ -1,124 +1,80 @@
 // Create an array of words to be used
-var flavors = ["vanilla","chocolate","strawberry","pistachio",]
-
-// Computer should choose words randomly
-var computerFlavor = flavors[Math.floor(Math.random() * flavors.length)];
+const flavors = ["vanilla","chocolate","strawberry","pistachio",]
+let computerFlavor = "";
 
 // Starting #'s for variables
-var wins = 0;
-var losses = 0;
-var guesses = 10;
-var underscores = []
-var lettersGuess =[]
-var wrongGuess =[]
+let wins = 0;
+let losses = 0;
+let guesses = 10;
+let underscores = [];
+let lettersGuess =[];
 
-console.log(computerFlavor);
-// Generate right amount of underscores for the words and display on html
 
-var newUnderscores = function() {
-
-    for(i = 0; i < computerFlavor.length; i++) {
-
-    underscores.push("_");
-    document.getElementById('wordToGuess').innerHTML = underscores.join(" ");
+gameStart = () => {
+    // Reset values on gameStart
+    guesses = 10
+    underscores = [];
+    lettersGuess = [];
+    wrongGuess = [];
+    // On Game Start, computer picks a random word
+    computerFlavor = flavors[Math.floor(Math.random() * flavors.length)];
+    // After word is chosen, generate number of blanks
+    for (let i = 0; i< computerFlavor.length; i++){
+        underscores.push("_");
+        document.getElementById("wordToGuess").innerHTML = underscores.join(" ");
     }
-    return underscores;
-}
-console.log(newUnderscores())
-
-
-// Get the users key input by event
-document.onkeyup = function(event) {
-    document.getElementById("lettersUsed").innerHTML = "Wrong guesses: " + wrongGuess
+    // Displays for start up
+    document.getElementById("lettersUsed").innerHTML = "Letters used: " + lettersGuess;
+    document.getElementById("wrongGuesses").innerHTML = "Guesses Left: " + guesses;
     document.getElementById("winsTotal").innerHTML = "Wins: " + wins;
-    document.getElementById("lossesTotal").innerHTML ="Losses: " + losses;
+    document.getElementById("lossesTotal").innerHTML = "Losses: " + losses;
 
-var userGuess = event.key;
-// based on event if and else statements to show correct or wrong answers
-if (computerFlavor.indexOf(userGuess) > -1){
-    lettersGuess.push(userGuess)
-    underscores[computerFlavor.indexOf(userGuess)] = userGuess
-    document.getElementById('wordToGuess').innerHTML = underscores.join(" ");
-    
-    if (underscores.join("") === computerFlavor) {
-
-        wins++
+}
+// Function to take onkey event and check if correct
+checkLetter = (letter) =>{
+    // default boolean to trigger for every instance a letter is present
+    let correctlyGuessed = false
+    for (let i = 0; i< computerFlavor.length; i++){
+    if (letter === computerFlavor[i]){
+        correctlyGuessed = true;
     }
-    console.log(lettersGuess)
-;}
-else {
-    wrongGuess.push(userGuess)
-    console.log(wrongGuess)
 }
+    if(correctlyGuessed){
+        for (let j = 0; j<computerFlavor.length; j++){
+            if(computerFlavor[j] === letter){
+                underscores[j] = letter
+            }
+        }
+    }
+    else {
+        lettersGuess.push(letter);
+        guesses--;
+    }
+   
+
 }
+roundCheck = () => {
+    // If game isn't over, update all the fields
+    document.getElementById("lettersUsed").innerHTML = "Letters used: " + lettersGuess;
+    document.getElementById("wrongGuesses").innerHTML = "Guesses Left: " + guesses;
+    document.getElementById("wordToGuess").innerHTML = underscores.join(" ");
+    // Game is won when underscores on page matches with the word
+    if(underscores.join("") === computerFlavor){
+        wins++
+        gameStart();
+    }
+    // Game is over when guesses reach 0
+    else if(guesses === 0){
+        losses++
+        gameStart();
+    }
+}
+// Initialze game
+gameStart();
 
-// function reset() {
-//     var guesses = 10;
-//     var underscores = []
-//     var lettersGuess = []
-//     var wrongGuess = []
-//     // Computer should choose words randomly
-//     var computerFlavor = flavors[Math.floor(Math.random() * flavors.length)];
-
-//     // Generate right amount of underscores for the words and display on html
-//     var newUnderscores = function () {
-
-//         for (i = 0; i < computerFlavor.length; i++) {
-
-//             underscores.push("_");
-//             document.getElementById('wordToGuess').innerHTML = underscores.join(" ");
-//         }
-//         return underscores;
-//     }
-//     console.log(computerFlavor)
-//     console.log(newUnderscores())
-//     startGame()
-// }
-
-// function startGame() {
-//     var guesses = 10;
-//     var underscores = []
-//     var lettersGuess = []
-//     var wrongGuess = []
-//     // Computer should choose words randomly
-//     var computerFlavor = flavors[Math.floor(Math.random() * flavors.length)];
-
-//     // Generate right amount of underscores for the words and display on html
-//     var newUnderscores = function () {
-
-//         for (i = 0; i < computerFlavor.length; i++) {
-
-//             underscores.push("_");
-//             document.getElementById('wordToGuess').innerHTML = underscores.join(" ");
-//         }
-//         return underscores;
-//     }
-//         document.getElementById("lettersUsed").innerHTML = "Wrong guesses: " + wrongGuess
-//         document.getElementById("winsTotal").innerHTML = "Wins: " + wins;
-//         document.getElementById("lossesTotal").innerHTML ="Losses: " + losses;
-
-//     console.log(computerFlavor)
-//     console.log(newUnderscores())
-// }
-
-// function compare(userKey) {
-
-//     if(computerFlavor.indexOf(userKey) > -1)
-//     {
-//         for(var i = 0; i < computerFlavor.length; i++){
-
-//             if(computerFlavor[i] === userKey){
-
-//                 document.getElementById('wordToGuess').innerHTML = underscores.join(" ");
-//             }
-//         }
-//         console.log(underscores)
-
-
-//     }
-
-
-// }
-
-
-
+// event to run on event key
+document.onkeyup = function(event){
+    let letterGuessed = String.fromCharCode(event.which).toLowerCase();
+    checkLetter(letterGuessed)
+    roundCheck();
+}
